@@ -1,13 +1,18 @@
 package com.digzdigital.eservice;
 
+
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.Auth;
@@ -15,32 +20,42 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+//import android.support.v4.app.Fragment;
+
 /**
  * Created by DDS on 10/12/2015.
  */
-public class signin_frag extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class signin_frag extends Fragment implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient mGoogleApiClient;
     private static int RC_SIGN_IN = 9001;
     private static final String TAG = "SignInActivity";
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
+    private Context context;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onAttach(Activity activity)
+    {
+       super.onAttach(activity);
+        context = activity.getApplicationContext();
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        final Context this = getActivity().getApplicationContext();
 
-        //TODO Choose layout due to some variable
-        setContentView(R.layout.signin_page);
+        //TODO Choose lay`out due to some variable
+//        setContentView(R.layout.signin_page);
 
 
-        SignInButton mylogin = (SignInButton)findViewById(R.id.sign_in_button);
+
 
 
 
@@ -55,8 +70,8 @@ public class signin_frag extends AppCompatActivity implements View.OnClickListen
 
         if (mGoogleApiClient == null)
         {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+            mGoogleApiClient = new GoogleApiClient.Builder(context)
+                    .enableAutoManage((FragmentActivity) context /* FragmentActivity */, this /* OnConnectionFailedListener */)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .build();
 
@@ -67,21 +82,28 @@ public class signin_frag extends AppCompatActivity implements View.OnClickListen
             // may be displayed when only basic profile is requested. Try adding the
             // Scopes.PLUS_LOGIN scope to the GoogleSignInOptions to see the
             // difference.
+            /*SignInButton mylogin = (SignInButton)findViewById(R.id.sign_in_button);
             SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
             signInButton.setSize(SignInButton.SIZE_STANDARD);
-            signInButton.setScopes(gso.getScopeArray());
+            signInButton.setScopes(gso.getScopeArray());*/
 
 
         }
 
     }
 
-    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        View view = inflater.inflate(R.layout.signin_page, container, false);
+        return view;
+    }
+
+    /*@Override
     public void onBackPressed()
     {
            super.onBackPressed();
             System.exit(0);
-            }
+            }*/
 
     @Override
     public void onStart() {
@@ -110,12 +132,12 @@ public class signin_frag extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    @Override
+    /*@Override
     protected void onStop()
     {
         mGoogleApiClient.disconnect();
         super.onStop();
-    }
+    }*/
 
 
 
@@ -194,7 +216,8 @@ public class signin_frag extends AppCompatActivity implements View.OnClickListen
             //findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             //findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 //            startActivity(new Intent("com.digzdigital.userv."));
-
+            //startActivity(new Intent("com.digzdigital.eservice"));
+            //TODO start the cab fragment
         } else {
             //mStatusTextView.setText(R.string.signed_out);
 
@@ -205,7 +228,8 @@ public class signin_frag extends AppCompatActivity implements View.OnClickListen
 
     private void showProgressDialog() {
         if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
+            //TODO getContext
+            mProgressDialog = new ProgressDialog(context);
             mProgressDialog.setMessage(getString(R.string.loading));
             mProgressDialog.setIndeterminate(true);
         }
