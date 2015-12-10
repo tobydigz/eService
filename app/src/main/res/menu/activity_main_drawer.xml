@@ -29,10 +29,5 @@
                 <!--android:title="Send" />-->
         <!--</menu>-->
     <!--</item>-->
-    <group android:checkableBehavior="none">
-        <item
-            android:id="@+id/sign_out_button"
-             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/sign_out" />
-    </group>
+
 </menu>
