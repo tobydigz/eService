@@ -41,7 +41,7 @@
         android:layout_marginTop="4dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/email"
+        android:text="@string/emails"
         android:layout_gravity="center"
         style="?android:attr/borderlessButtonStyle"/>
 
