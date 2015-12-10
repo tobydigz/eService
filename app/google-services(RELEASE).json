@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_id": "eservice-da5f3",
+    "project_number": "811881313780",
+    "name": "eService"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811881313780:android:21c9db07ebb0a81e",
+        "client_id": "android:com.digzdigital.eservice",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.digzdigital.eservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811881313780-gsopda6cd18noc97c4a8pr4s7n74sklk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digzdigital.eservice",
+            "certificate_hash": "C0001BFC37299102297BBD4028DD1F1E8A5E71D6"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
