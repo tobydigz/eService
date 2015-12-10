@@ -14,4 +14,6 @@
     <string name="exit">Exit</string>
     <string name="username">eService</string>
     <string name="email">eService</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="loading">Loading…</string>
 </resources>

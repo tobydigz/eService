@@ -5,11 +5,11 @@
         android:width="60dp"
         />
 
-    <gradient android:startColor="@color/UServSec1"
-        android:endColor="@color/UServSec2"
-        android:centerColor="@color/UServMain"
-        android:angle="135"
-        android:type="linear"
+    <gradient android:startColor="#42a5f5"
+        android:endColor="#2196f3"
+        android:angle="315"
+        android:type="radial"
+        android:gradientRadius="70dp"
         />
 
 </shape>
