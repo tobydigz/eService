@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        textView = (TextView) findViewById(R.id.textView); //Text View of main content in content_main.xml
         buildGoogleApiClient();
+        textView = (TextView) findViewById(R.id.textView); //Text View of main content in content_main.xml
 
 
     }
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
-                .addApi(AppIndex.API).build();
+                .build();
     }
 
     @Override
@@ -147,19 +147,8 @@ public class MainActivity extends AppCompatActivity
 
         super.onStart();
         mGoogleApiClient.connect();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.digzdigital.eservice/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(mGoogleApiClient, viewAction);
+
+
     }
 
     @Override
@@ -171,19 +160,7 @@ public class MainActivity extends AppCompatActivity
             mGoogleApiClient.disconnect();
         }
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.digzdigital.eservice/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(mGoogleApiClient, viewAction);
+
     }
 
     @Override
@@ -191,31 +168,33 @@ public class MainActivity extends AppCompatActivity
         // Connected to Google Play services!
         // The good stuff goes here.
 
-        //        Create alocation request called mLocationRequest
-        LocationRequest mLocationRequest = LocationRequest.create();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
+        //        Create a location request called mLocationRequest
+        mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(5000);
 
 
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
         if (mLastLocation != null) {
-    /*       String mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
-            String mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));*/
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
             mLatitude = String.valueOf(mLastLocation.getLatitude());
             mLongitude = String.valueOf(mLastLocation.getLongitude());
 
 
         }
 
-        /*textView.setText(mLatitude + " " + mLongitude);*/
+
     }
 
     @Override
     public void onLocationChanged(Location location) {
         Log.i(LOG_TAG, location.toString());
-        textView.setText("Latitude: " + mLatitude + " Longitude: " + mLongitude); //displays the location
+       textView.setText("Latitude: " + Double.toString(location.getLatitude()) + " " + "Longitude: " + Double.toString(location.getLongitude())); //displays the location
+
 
     }
 
@@ -238,7 +217,7 @@ public class MainActivity extends AppCompatActivity
         //
         // More about this in the 'Handle Connection Failures' section.
 
-        Log.i(LOG_TAG, "GoogleApiClient has Failed: " +result.getErrorMessage());
+        Log.i(LOG_TAG, "GoogleApiClient has Failed: " + result.getErrorMessage());
 
     }
 
