@@ -1,7 +1,8 @@
 package com.digzdigital.eservice;
 
-/*import android.app.Fragment;
-import android.app.FragmentTransaction;*/
+
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.location.Location;
 import android.net.Uri;
@@ -30,7 +31,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-//import gms.drive.*;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     private LocationRequest mLocationRequest;
     private TextView textView;
     private String mLatitude, mLongitude;
+    SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
 
     @Override
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

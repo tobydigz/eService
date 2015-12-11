@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -38,6 +40,8 @@ public class signin_frag extends Fragment implements View.OnClickListener, Googl
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
     private Context context;
+    SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+    SharedPreferences.Editor edit = pref.edit();
 
 
     @Override
@@ -166,6 +170,8 @@ public class signin_frag extends Fragment implements View.OnClickListener, Googl
                     public void onResult(Status status) {
                         // [START_EXCLUDE]
                         updateUI(false);
+                        edit.remove("name");
+                        edit.remove("Id");
                         // [END_EXCLUDE]
                     }
                 });
@@ -203,6 +209,12 @@ public class signin_frag extends Fragment implements View.OnClickListener, Googl
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
+
+            //Shared preferences storing goes on here
+            edit.putString("name", personName);
+            edit.putString("Id", personId);
+            edit.putString("Email", personEmail);
+            edit.commit();
 //            mStatusTextView.setText(getString(R.string.username, acct.getDisplayName()));
             updateUI(true);
         } else {
